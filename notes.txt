@@ -1,1 +1,25 @@
+Blockchain - a distributed ledger that stores 'blocks' containing data
+-- 'Trustless' - There is no central body to trust
+-- Ledger - a copy of all the transactions -- copies of the the ledger are shared across the network each 'node'
+-- Block - the individual peice which makes up the blockchain and named with a 'hash'
+--- Hash - Unique value generated from a hash function based on:
+																- timestamp stored within the block
+																- creation data
+																- position in the block
+																- hash of the previous block
+
+Digital signatures
+-- Cryptography - The layer used for security between transactions in the form of 'digital signatures'
+-- Private key - Hash signature used by the individual to create a signature -- private key hash + data hash = public key hash
+-- Public key - Hash signature publically available for verification
+
+Wallet
+-- Stores the public and private key of an individual
+-- Public key is the address of the wallet
+
+Mining
+-- 'Unconfirmed' - Transactions that have not yet been processed
+-- Proof of work - A block of 'Unconfirmed' transactions are taken and processed through an SHA-256 algorithm.
+--- The first miner that completes the block algorithm gets to add the block to the ledger.
+---- This miner is rewarded with cryptocurrency for completing the block.
 
