@@ -23,3 +23,11 @@ Mining
 --- The first miner that completes the block algorithm gets to add the block to the ledger.
 ---- This miner is rewarded with cryptocurrency for completing the block.
 
+----------------------------------------------------------------------------------
+BASH terminal:
+
+//creates package.json file
+npm init -y
+
+//'nodemon' development depandancy. Works like Node but has live development server
+npm i nodemon --save-dev
