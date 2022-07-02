@@ -23,6 +23,16 @@ class Block
 		{
 		 return new this('Genesis time', 'Genesis lastHash', 'Genesis hash', 'Genesis data');
 		}
+		
+		//BLock for mining - 
+		static mineBlock(lastBlock, data)
+		{
+		 const timeStamp = Date.now();          //Current time
+		 const lastHash = lastBlock.hash;       //Hash from previous block
+		 const hash = 'a hash will go here';    //Hash for this block
+		 
+		 return new this(timeStamp, lastHash, hash, data); //Return all including 'data'
+		}
 	}
 	
 	module.exports = Block;
