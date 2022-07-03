@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/TimIsabella/NodeBlockchain#readme",
   "devDependencies": {
+    "jest": "^28.1.2",
     "nodemon": "^2.0.18"
   },
   "dependencies": {
