@@ -20,5 +20,8 @@
   "homepage": "https://github.com/TimIsabella/NodeBlockchain#readme",
   "devDependencies": {
     "nodemon": "^2.0.18"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1"
   }
 }

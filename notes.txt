@@ -19,7 +19,7 @@ Wallet
 
 Mining
 -- 'Unconfirmed' - Transactions that have not yet been processed
--- Proof of work - A block of 'Unconfirmed' transactions are taken and processed through an SHA-256 algorithm.
+-- Proof of work - A block of 'Unconfirmed' transactions are taken and processed through an SHA-256 algorithm (SHA = 'Secure Hash Algorithm", '256' denotes 256 bits or 32 bytes/characters)
 --- The first miner that completes the block algorithm gets to add the block to the ledger.
 ---- This miner is rewarded with cryptocurrency for completing the block.
 
@@ -29,5 +29,8 @@ BASH terminal:
 //creates package.json file
 npm init -y
 
-//'nodemon' development depandancy. Works like Node but has live development server
+//'nodemon' development depandancy -- Works like Node but has live development server
 npm i nodemon --save-dev
+
+//'crypto-js' module -- Contains SHA-256 function
+npm i crypto-js --save

@@ -1,3 +1,5 @@
+const SHA256 = require('crypto-js/sha256');
+
 class Block 
 	{
 		//Define attributes of the 'Block' class
@@ -29,9 +31,15 @@ class Block
 		{
 		 const timeStamp = Date.now();          //Current time
 		 const lastHash = lastBlock.hash;       //Hash from previous block
-		 const hash = 'a hash will go here';    //Hash for this block
+		 const hash = Block.hash(timeStamp, lastHash, data);    //Hash for this block
 		 
 		 return new this(timeStamp, lastHash, hash, data); //Return all including 'data'
+		}
+		
+		//Get all variables, interpolate into a string, convert to hash, and return
+		static hash(timeStamp, lastHash, data)
+		{
+		 return SHA256(`${timeStamp}${lastHash}${data}`).toString();
 		}
 	}
 	
