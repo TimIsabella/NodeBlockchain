@@ -25,6 +25,27 @@ class Blockchain
 	     
 	     return block;
 	    }
+	    
+	 isValidChain(chain)
+	    {
+	     //Check if chain block 0 matches the genesis block
+	     if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
+	     
+	     //Validate every block following genesis, starting at element 1 and ending at '.length'
+	     for(let i = 1; i < chain.length; i++)
+	     {
+	      const block = chain[i];       //Current block
+	      const lastBlock = chain[i-1]; //Previous block
+	      
+	      //Compare current block 'lastHash' with previous block 'hash'
+	      //OR compare current block hash with newly generated hash of current block
+	      //If validations fail, return false
+	      if(block.lastHash !== lastBlock.hash || block.hash !== Block.blockHash(block)) return false;
+	     }
+	     
+	     //If validations pass, return true
+	     return true;
+	    }
 	}
 
 //Export Blockchain class

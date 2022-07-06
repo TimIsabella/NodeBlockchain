@@ -23,6 +23,14 @@ Mining
 --- The first miner that completes the block algorithm gets to add the block to the ledger.
 ---- This miner is rewarded with cryptocurrency for completing the block.
 
+Multiple Chain Validation
+-- In an instance where two or more miners simutaniously add new blocks, the system will wait for a miner which adds more blocks or a 'longer chain' before chain update, and then adds the other blocks
+-- This is to ensure that all the blocks get updated and everyone has the same copy, regardless of block update timing.
+
+Hash Validation
+-- Checks hash value of every chain
+--- If the hash does not match, then it is discarded
+
 ----------------------------------------------------------------------------------
 BASH terminal:
 

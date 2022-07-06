@@ -41,6 +41,14 @@ class Block
 		{
 		 return SHA256(`${timeStamp}${lastHash}${data}`).toString();
 		}
+		
+		static blockHash(block)
+		{
+		 //Destructure variables into 'block'
+		 const {timeStamp, lastHash, data} = block;
+		 
+		 return Block.hash(timeStamp, lastHash, data);
+		}
 	}
 	
 	module.exports = Block;
