@@ -48,3 +48,6 @@ npm i jest --save-dev
 
 //'express' module -- Used to create HTTP APIs
 npm i express --save
+
+//'body-parser' middle-care module -- Allows recieving JSON data from POST requests
+npm i body-parser --save
