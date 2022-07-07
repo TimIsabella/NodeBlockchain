@@ -30,8 +30,8 @@ describe('Blockchain', () => {
 							  
 							  //
 							  it('validates a valid chain', () => {
-																   //const data = 'new data';
-																   bc2.addBlock('new data');  //Create block in 'bc2' chain with 'data' using 'addBlock()' method from 'blockchain.js'
+																   const data = 'new data';
+																   bc2.addBlock(data);  //Create block in 'bc2' chain with 'data' using 'addBlock()' method from 'blockchain.js'
 																   
 																   //Validate 'bc' chain with 'bc2' chain by using 'isValidChain()' method from 'blockchain.js' by comparing the two with output '.toBe()'
 																   expect(bc.isValidChain(bc2.chain)).toBe(true);

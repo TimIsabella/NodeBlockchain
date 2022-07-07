@@ -25,7 +25,7 @@ class Blockchain
 	     
 	     return block;
 	    }
-	    
+	 
 	 isValidChain(chain)
 	    {
 	     //Check if chain block 0 matches the genesis block
