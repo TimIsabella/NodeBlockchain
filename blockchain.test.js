@@ -20,7 +20,7 @@ describe('Blockchain', () => {
 							  
 							  //Add block to chain 'bc' then check if previous block data match
 							  it('adds a new block', () => {
-							                                const data = 'new data';
+							                                const data = 'New data';
 							                                bc.addBlock(data);  //Create block in 'bc' chain with 'data' using 'addBlock()' method from 'blockchain.js'
 							                                
 							                                //Check if last block in 'bc' chain -1 equals 'data'
@@ -30,7 +30,7 @@ describe('Blockchain', () => {
 							  
 							  //Compare previous chain to new chain
 							  it('validates a valid chain', () => {
-																   const data = 'new data';
+																   const data = 'New data';
 																   bc2.addBlock(data);  //Create block in 'bc2' chain with 'data' using 'addBlock()' method from 'blockchain.js'
 																   
 																   //Validate 'bc' chain with 'bc2' chain by using 'isValidChain()' method from 'blockchain.js' by comparing the two with output '.toBe()'
@@ -48,12 +48,38 @@ describe('Blockchain', () => {
 							  
 							  //Change 'bc2.chain' element 1 data to 'Not new data' and compare with 'bc' chain. Expect to return 'false' because they don't match
 							  it('invalidates a corrupt chain', () => {
-																	   const data = 'new data';
+																	   const data = 'New data';
 																	   bc2.addBlock(data);
 																	   bc2.chain[1].data = 'Not new data';
 																	   
 																	   expect(bc.isValidChain(bc2.chain)).toBe(false);
 							                                          }
 							    )
+							  
+							  
+							  it('replaces the chain with a valid chain', () => {
+							                                                     //Adds a block with data
+							                                                     bc2.addBlock('New data 2');
+							                                                     
+							                                                     //Compare length and validity of 'bc' chain to 'bc2' chain, then replaces the 'bc' chain with 'bc2' if successful
+							                                                     bc.replaceChain(bc2.chain);
+							                                                     
+							                                                     //Check to compare if 'bc' and 'bc2' chain are equal
+							                                                     expect(bc.chain).toEqual(bc2.chain);
+							                                                    }
+							    );
+							    
+							  it('does not replace the chain with one of less than or equal to length', () => {
+																											   //Add block to 'bc' chain
+																											   bc.addBlock('Whatever data');
+																											   
+																											   //Attempt to replace 'bc' chain with 'bc2' chain
+																											   ////Rejected because 'bc' chain is longer than 'bc2' chain by the newly added block
+																											   bc.replaceChain(bc2.chain);
+																											   
+																											   //Compare 'bc' chain and 'bc2' chain, that they are not equal
+																											   expect(bc.chain).not.toEqual(bc2.chain);
+							                                                                                  }
+							    );
 							 }
 		);
