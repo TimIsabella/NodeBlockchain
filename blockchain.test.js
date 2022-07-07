@@ -28,7 +28,7 @@ describe('Blockchain', () => {
 							                               }
 							    );
 							  
-							  //
+							  //Compare previous chain to new chain
 							  it('validates a valid chain', () => {
 																   const data = 'new data';
 																   bc2.addBlock(data);  //Create block in 'bc2' chain with 'data' using 'addBlock()' method from 'blockchain.js'
@@ -37,5 +37,23 @@ describe('Blockchain', () => {
 																   expect(bc.isValidChain(bc2.chain)).toBe(true);
 							                                      }
 							    );
+							
+							  //Change the 'bc2.chain' element 0 (genesis block) data to 'Bad data' and compare with 'bc' chain. Expect to return 'false' because they don't match
+							  it('invalidates a chain with a corrupt genesis block', () => {
+							                                                                bc2.chain[0].data = 'Bad data';
+							                                                                
+							                                                                expect(bc.isValidChain(bc2.chain)).toBe(false);
+							                                                               }
+							   );
+							  
+							  //Change 'bc2.chain' element 1 data to 'Not new data' and compare with 'bc' chain. Expect to return 'false' because they don't match
+							  it('invalidates a corrupt chain', () => {
+																	   const data = 'new data';
+																	   bc2.addBlock(data);
+																	   bc2.chain[1].data = 'Not new data';
+																	   
+																	   expect(bc.isValidChain(bc2.chain)).toBe(false);
+							                                          }
+							    )
 							 }
 		);
