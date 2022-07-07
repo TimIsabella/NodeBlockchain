@@ -46,6 +46,28 @@ class Blockchain
 	     //If validations pass, return true
 	     return true;
 	    }
+     
+     //Check to ensure that only the longest chain is accepted as the new chain
+	 replaceChain(newChain)
+	    {
+	     //If 'newChain' is less than or equal to the current 'this' chain
+	     if(newChain.length <= this.chain.length)
+	       {
+	        console.log('Recieved chain is not longer than the current chain.');
+	        
+	        return;
+	       }
+	     else if(!this.isValidChain(newChain)) 
+	            {
+	             console.log('Recieved chain is not valid.');
+				 
+				 return;
+				}
+		 
+		 //Repalce chain after successful length and validity checks
+		 console.log('Repalcing blockchain with the new chain');
+		 this.chain = newChain;
+	    }
 	}
 
 //Export Blockchain class
