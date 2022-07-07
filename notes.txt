@@ -45,3 +45,6 @@ npm i crypto-js --save
 
 //'jest' module (as development depandancy) -- Test runner that can run files with the '*.test.js' extension
 npm i jest --save-dev
+
+//'express' module -- Used to create HTTP APIs
+npm i express --save
