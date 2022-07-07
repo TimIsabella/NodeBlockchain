@@ -30,7 +30,7 @@ app.post('/mine', (req, res) => {
 								 const block = bc.addBlock(req.body.data);
 								 console.log(`New block aded: ${block.toString()}`);
 								 
-								 //Return respond to POST with current block
+								 //Respond to client with current block
 								 res.redirect('/blocks');
 								}
 		);
