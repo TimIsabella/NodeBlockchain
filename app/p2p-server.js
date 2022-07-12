@@ -26,7 +26,7 @@ class P2pServer
 	    }
 	 
 	 //Push socket to class and log connected
-	 connectionSocket(socket)
+	 connectSocket(socket)
 	    {
 	     this.sockets.push(socket);         //Push sockets to 'class.sockets' array
 	     console.log('Socket connected');
