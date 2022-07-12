@@ -22,7 +22,22 @@ class P2pServer
 	    {
 	     const server = new Websocket.Server({port: P2P_PORT}); //Create a server instance using 'Websocket module' called 'server' running on port 'P2P_PORT'
 	     server.on('connection', socket => this.connectSocket(socket)); //Set '.on()' event on 'server' for 'connection', and call '.connectSocket' when event is triggered
+	     
+	     this.connectToPeers(); //Return websocket objects for peers passed in
+	     
 	     console.log(`Listening for peer-to-peer connections on: ${P2P_PORT}`);
+	    }
+	 
+	 //Create and connect to peer websockets
+	 connectToPeers()
+	    {
+	     //Create websocket objects for each 'peer' and connect
+	     peers.forEach(peer => {
+								const socket = new Websocket(peer); //Create peer websocket object -- socket example: "ws://localhost:5001"
+								
+								socket.on('open', () => this.connectSocket(socket)); //'open' websocket of 'socket' and call 'connectSocket()'
+	                           }
+	                  )
 	    }
 	 
 	 //Push socket to class and log connected
@@ -32,3 +47,5 @@ class P2pServer
 	     console.log('Socket connected');
 	    }
 	}
+
+module.exports = P2pServer; //Export class
