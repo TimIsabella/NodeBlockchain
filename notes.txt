@@ -57,3 +57,6 @@ npm i express --save
 
 //'body-parser' middle-care module -- Allows recieving JSON data from POST requests
 npm i body-parser --save
+
+//'web socket module' -- Provides web socket network functionality
+npm i ws --save
