@@ -31,6 +31,12 @@ Hash Validation
 -- Checks hash value of every chain
 --- If the hash does not match, then it is discarded
 
+Peer-to-peer server
+-- All nodes are 'peers' running 'websockets' on separate ports
+-- All connected peers can broadcast stringified data to all the other connected peers
+-- Upon intitial instance of the blockchain, the original peer will start the blockchain server 
+-- Need to ensure that newly connected peers have the latest blockchain
+
 ----------------------------------------------------------------------------------
 BASH terminal:
 
