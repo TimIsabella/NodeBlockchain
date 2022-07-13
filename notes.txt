@@ -13,15 +13,25 @@ Digital signatures
 -- Private key - Hash signature used by the individual to create a signature -- private key hash + data hash = public key hash
 -- Public key - Hash signature publically available for verification
 
-Wallet
--- Stores the public and private key of an individual
--- Public key is the address of the wallet
+Proof of Work
+-- High level of computational work yeilding as proof of legitamacy
+-- Only one block is processed to be 'manageable'. Generating an entire chain would be computationally impossible
+-- Algorithm used is similar to 'Hashcash' and is used for Bitcoin
+--- The difficulty level increases by way of missing digits in a hash: 000000haxi29573jajrH -- where the 0's are missing hash digits. Six 0's means the difficulty level is '6'
+---- The missing hash digits have to be generated to find a match, known as 'mining'
+----- The generated hash digits are created by adjusting the 'nonce' value, which is used only once each time, starting at 0
+------ Once the correct missing digits are determined, the block has been completed and will be added to the chain
+-- 51% Attack: Where a single entity owns 51% of the networks power and attempts to replace the chain with a dishonest chain
 
 Mining
 -- 'Unconfirmed' - Transactions that have not yet been processed
--- Proof of work - A block of 'Unconfirmed' transactions are taken and processed through an SHA-256 algorithm (SHA = 'Secure Hash Algorithm", '256' denotes 256 bits or 32 bytes/characters)
---- The first miner that completes the block algorithm gets to add the block to the ledger.
----- This miner is rewarded with cryptocurrency for completing the block.
+-- Any peer can repace the blockchain
+-- The first miner that completes the block algorithm gets to add the block to the ledger
+-- This miner is rewarded with cryptocurrency for completing the block
+
+Wallet
+-- Stores the public and private key of an individual
+-- Public key is the address of the wallet
 
 Multiple Chain Validation
 -- In an instance where two or more miners simutaniously add new blocks, the system will wait for a miner which adds more blocks or a 'longer chain' before chain update, and then adds the other blocks
