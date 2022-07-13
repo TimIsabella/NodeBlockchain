@@ -1,5 +1,8 @@
 const Block = require('./block');
 
+//Destructure 'DIFFICULTY' export from 'config.js'
+const { DIFFICULTY } = require('../config');
+
 describe('Block', () => {
 						 let data, lastBlock, block;
 						 
@@ -22,6 +25,13 @@ describe('Block', () => {
 						 it('Sets the `lastHash` to match hash of last block', () => {
 						                                                              expect(block.lastHash).toEqual(lastBlock.hash);
 						                                                             }
+						   );
+						   
+						 it('Generates a hash that matches the difficulty', () => {
+						                                                           //'expect' block.hash to substringed of 'DIFFICULTY' number of 0's to equal 0's of 'DIFFICULTY' number
+						                                                           expect(block.hash.substring(0, DIFFICULTY)).toEqual('0'.repeat(DIFFICULTY));
+						                                                           console.log(block.toString());
+						                                                          }
 						   );
 						}
 		);

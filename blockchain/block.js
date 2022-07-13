@@ -1,6 +1,7 @@
 const SHA256 = require('crypto-js/sha256');
 
-const DIFFICULTY = 4;
+//Destructure 'DIFFICULTY' export from 'config.js'
+const { DIFFICULTY } = require('../config');
 
 class Block 
 	{
@@ -17,7 +18,7 @@ class Block
 		toString()
 		{
 		 return `Block - 
-		         Timestamp: ${this.timestamp}
+		         Timestamp: ${this.timeStamp}
 		         Last Hash: ${this.lastHash}
 		         Hash     : ${this.hash}
 		         Nonce    : ${this.nonce}
@@ -31,7 +32,7 @@ class Block
 		//'static' - method that allows calling without having to make a new instance of the block class
 		static genesis()
 		{
-		 return new this('Genesis time', 'Genesis lastHash', 'Genesis hash', 'Genesis data', 0);
+		 return new this('Genesis time', 'Genesis lastHash', 'Genesis hash', 'Genesis data data data', 0);
 		}
 		
 		//BLock for mining - 
@@ -43,22 +44,25 @@ class Block
 		 const lastHash = lastBlock.hash;  //Hash from previous block
 		 let nonce = 0;                    //Nonce value
 		 
-		 //Perform loop of hash with zeros up to 'DIFFICULTY' value until match
-		 while(hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY))      
+		 /*
+		 //Perform loop to find hash starting with zeros up to 'DIFFICULTY' value until match
+		 while(true)      
 			  {
+			   nonce++;
 			   timeStamp = Date.now();                                 //Current time
 			   hash = Block.hash(timeStamp, lastHash, data, nonce);    //Hash for this block
 			   
-			   nonce++;
+			   if(hash.substring(0, DIFFICULTY) === '0'.repeat(DIFFICULTY)) break;
 		      }
+		 */
 		 
-		 /*
+		 //Perform loop to find hash starting with zeros up to 'DIFFICULTY' value until match (same as above but faster)
 		 do{                                     
 		    nonce++;
 		    timeStamp = Date.now();                                 //Current time
 		    hash = Block.hash(timeStamp, lastHash, data, nonce);    //Hash for this block
-		   } while(hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY));
-		 */   
+		   }
+		 while(hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY));
 		
 		 return new this(timeStamp, lastHash, hash, data, nonce); //Return all including 'data'
 		}
