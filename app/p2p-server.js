@@ -21,7 +21,7 @@ class P2pServer
 	 listen()
 	    {
 	     const server = new Websocket.Server({port: P2P_PORT}); //Create a server instance using 'Websocket module' called 'server' running on port 'P2P_PORT'
-	     server.on('connection', socket => this.connectSocket(socket)); //Set '.on()' event on 'server' for 'connection', and call '.connectSocket' when event is triggered
+	     server.on('connection', socket => this.connectSocket(socket)); //Bind 'connection' event to 'server' and call 'connectSocket' when triggered
 	     
 	     this.connectToPeers(); //Return websocket objects for peers passed in
 	     
@@ -35,16 +35,33 @@ class P2pServer
 	     peers.forEach(peer => {
 								const socket = new Websocket(peer); //Create peer websocket object -- socket example: "ws://localhost:5001"
 								
-								socket.on('open', () => this.connectSocket(socket)); //'open' websocket of 'socket' and call 'connectSocket()'
+								socket.on('open', () => this.connectSocket(socket)); //Bind 'open' event to 'socket' and call 'connectSocket' when triggered
 	                           }
 	                  )
 	    }
 	 
-	 //Push socket to class and log connected
+	 //Socket connection opened
 	 connectSocket(socket)
 	    {
 	     this.sockets.push(socket);         //Push sockets to 'class.sockets' array
-	     console.log('Socket connected');
+	     console.log('Socket connected');   //
+	     
+	     //Call message handler
+	     this.messageHandler(socket);
+	     
+	     const bcString = JSON.stringify(this.blockchain.chain); //Stringify blockchain chain
+	     socket.send(bcString); //Send 'message' of blockchain string
+	    }
+	
+	 //Prepare message to be sent to socket
+	 messageHandler(socket)
+	    {
+	     //Bind 'message' event to 'socket' and call function when triggered (triggered on '.send()')
+	     socket.on('message', message => {
+	                                      const data = JSON.parse(message); //Parse 'message' recieved to JSON
+	                                      console.log('data', data);
+	                                     }
+	              );
 	    }
 	}
 
