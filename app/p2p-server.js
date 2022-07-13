@@ -49,8 +49,8 @@ class P2pServer
 	     //Call message handler
 	     this.messageHandler(socket);
 	     
-	     const bcString = JSON.stringify(this.blockchain.chain); //Stringify blockchain chain
-	     socket.send(bcString); //Send 'message' of blockchain string
+	     //Call blockchain send for socket
+	     this.sendChain(socket);
 	    }
 	
 	 //Prepare message to be sent to socket
@@ -59,10 +59,30 @@ class P2pServer
 	     //Bind 'message' event to 'socket' and call function when triggered (triggered on '.send()')
 	     socket.on('message', message => {
 	                                      const data = JSON.parse(message); //Parse 'message' recieved to JSON
-	                                      console.log('data', data);
+	                                      //console.log('data', data);
+	                                      
+	                                      //Call 'replaceChain' to check if current chain is up to date and replace if needed
+	                                      this.blockchain.replaceChain(data);
 	                                     }
 	              );
 	    }
+	 
+	 //Initiate blockchain send
+     sendChain(socket)
+        {
+         const bcString = JSON.stringify(this.blockchain.chain); //Stringify blockchain chain
+         socket.send(bcString); //Send 'message' of blockchain string
+        }
+    
+     //Peers chain update when new block addition is confirmed 
+	 syncChains()
+		{
+		 //Send update for each peer 'socket'
+		 this.sockets.forEach(socket => {
+		                                 this.sendChain(socket); //Send blockchain to socket
+		                                }
+		                     );
+		}
 	}
 
 module.exports = P2pServer; //Export class

@@ -69,7 +69,7 @@ class Blockchain
 				}
 		 
 		 //Repalce chain after successful length and validity checks
-		 console.log('Repalcing blockchain with the new chain');
+		 console.log('Replacing blockchain with the new chain');
 		 this.chain = newChain;
 	    }
 	}
