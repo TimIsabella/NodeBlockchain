@@ -45,8 +45,8 @@ Wallets
 
 Transactions
 -- An object which contains an input and an output
-   - Input: timestamp, sender balance, signature, sender's public key
-   - Output: amount being sent, address, amount remaining after send
+   - Input: sender public key address, sender balance, timestamp, signature
+   - Output: sendee public key address, amount being sent, amount remaining after send
 
 Digital signatures
 -- Cryptography - The layer used for security between transactions in the form of 'digital signatures'
