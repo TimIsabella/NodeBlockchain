@@ -21,6 +21,7 @@ Proof of Work
 ---- The missing hash digits have to be generated to find a match, known as 'mining'
 ----- The generated hash digits are created by adjusting the 'nonce' value, which is used only once each time, starting at 0
 ------ Once the correct missing digits are determined, the block has been completed and will be added to the chain
+-- Dynamic difficulty mine rate -- compare time-stamp of newly and previously completed blocks to adjust difficulty level
 -- 51% Attack: Where a single entity owns 51% of the networks power and attempts to replace the chain with a dishonest chain
 
 Mining
