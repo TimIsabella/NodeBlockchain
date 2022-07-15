@@ -8,11 +8,6 @@ Blockchain - a distributed ledger that stores 'blocks' containing data
 																- position in the block
 																- hash of the previous block
 
-Digital signatures
--- Cryptography - The layer used for security between transactions in the form of 'digital signatures'
--- Private key - Hash signature used by the individual to create a signature -- private key hash + data hash = public key hash
--- Public key - Hash signature publically available for verification
-
 Proof of Work
 -- High level of computational work yeilding as proof of legitamacy
 -- Only one block is processed to be 'manageable'. Generating an entire chain would be computationally impossible
@@ -30,10 +25,6 @@ Mining
 -- The first miner that completes the block algorithm gets to add the block to the ledger
 -- This miner is rewarded with cryptocurrency for completing the block
 
-Wallet
--- Stores the public and private key of an individual
--- Public key is the address of the wallet
-
 Multiple Chain Validation
 -- In an instance where two or more miners simutaniously add new blocks, the system will wait for a miner which adds more blocks or a 'longer chain' before chain update, and then adds the other blocks
 -- This is to ensure that all the blocks get updated and everyone has the same copy, regardless of block update timing.
@@ -48,13 +39,27 @@ Peer-to-peer server
 -- Upon intitial instance of the blockchain, the original peer will start the blockchain server 
 -- Need to ensure that newly connected peers have the latest blockchain
 
+Wallets
+-- Stores the public and private key of an individual
+-- Public key is the address of the wallet
+
+Transactions
+-- An object which contains an input and an output
+   - Input: timestamp, sender balance, signature, sender's public key
+   - Output: amount being sent, address, amount remaining after send
+
+Digital signatures
+-- Cryptography - The layer used for security between transactions in the form of 'digital signatures'
+-- Private key - Hash signature used by the individual to create a signature -- private key hash + data hash = public key hash
+-- Public key - Hash signature publically available for verification
+
+
+---------------------------------------------------------------------------------
 Testing for 'Section 5: Connect to Blockchain Peers'
 -- Bash terminal 1: npm run dev                                                                                                 //Start initial peer websocket server
 -- Bash terminal 2: HTTP_PORT=3002 P2P_PORT=5002 PEERS=ws://localhost:5001 npm run dev                                          //Start peer 2
 -- Bash terminal 3: HTTP_PORT=3003 P2P_PORT=5003 PEERS=ws://localhost:5001,ws://localhost:5002 npm run dev                      //Start peer 3
 -- Bash terminal 4: HTTP_PORT=3004 P2P_PORT=5004 PEERS=ws://localhost:5001,ws://localhost:5002,ws://localhost:5003 npm run dev  //Start peer 4
-
-
 ----------------------------------------------------------------------------------
 BASH terminal:
 
