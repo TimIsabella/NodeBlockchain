@@ -1,3 +1,4 @@
+/*
 const Block = require('./block');
 
 //Create block based on the arguments
@@ -11,3 +12,14 @@ console.log(genesisBlock.toString());
 //Create 'mineBlock' using genesis block and adding in 'content' for data
 const fooBlock = Block.mineBlock(Block.genesis(), 'content');
 console.log(fooBlock.toString());
+*/
+
+const Blockchain = require('./blockchain');
+
+const bc = new Blockchain();
+
+//Add 10 blocks to the chain
+for(let i = 0; i < 10; i++)
+   {
+	console.log(bc.addBlock(`New data ${i}`).toString());
+   }

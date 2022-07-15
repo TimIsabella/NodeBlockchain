@@ -27,7 +27,7 @@ class Block
 		         Data      : ${this.data}`;
 		 
 		 //Return a shortened version by using '.substring()'
-		 //return `Block - \n Timestamp: ${this.timestamp},\n Last Hash: ${this.lastHash.substring(0, 10)},\n Hash: ${this.hash.substring(0, 10)},\n Data: ${this.data}`;
+		 //return `Block - \n Timestamp: ${this.timeStamp},\n Last Hash: ${this.lastHash.substring(0, 10)},\n Hash: ${this.hash.substring(0, 10)},\n Data: ${this.data}`;
 		}
 		
 		//Very first block in chain
@@ -41,7 +41,7 @@ class Block
 		static mineBlock(lastBlock, data)
 		{
 		 let timeStamp;
-		 const lastHash = null;
+		 let lastHash;
 		 let hash;
 		 let nonce;
 		 let difficulty;
@@ -66,7 +66,7 @@ class Block
 		 do{                                     
 		    nonce++;
 		    timeStamp = Date.now();                                          //Current timestamp
-		    difficulty = Block.adjustDifficulty(lastBlock, timestamp);       //Adjusted difficulty level based on block completion timestamps
+		    difficulty = Block.adjustDifficulty(lastBlock, timeStamp);       //Adjusted difficulty level based on block completion timestamps
 		    hash = Block.hash(timeStamp, lastHash, data, nonce, difficulty); //Hash for this block
 		   }
 		 while(hash.substring(0, difficulty) !== '0'.repeat(difficulty));
@@ -88,6 +88,7 @@ class Block
 		 return Block.hash(timeStamp, lastHash, data, nonce, difficulty);
 		}
 		
+		//Adjust the block difficulty by comparing timestamps of previous and current block completion
 		static adjustDifficulty(lastBlock, currentTime)
 		{
 		 let difficulty = lastBlock.difficulty;
