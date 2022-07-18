@@ -21,13 +21,19 @@ describe('Transaction', () => {
 							     );
 							   
 							   //
-							   it('transactions amount subtracted from recipient balance', () => {
-							                                                                      expect(
-							                                                                             transaction.outputs.find(output => output.address === recipient).amount
-							                                                                            ).toEqual(amount);
-							                                                                     }
+							   it('transaction amount subtracted from recipient balance', () => {
+							                                                                     expect(
+							                                                                            transaction.outputs.find(output => output.address === recipient).amount
+							                                                                           ).toEqual(amount);
+							                                                                    }
 							     );
 							   
+							   //
+							   it('inputs wallet balance', () => {
+							                                      expect(transaction.input.amount).toEqual(wallet.balance);
+							                                     }
+							     );
+							    
 							   //
 							   describe('transaction amount exceeds balance', () => {
 							                                                         beforeEach(() => {
