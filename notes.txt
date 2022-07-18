@@ -83,3 +83,6 @@ npm i body-parser --save
 
 //'web socket module' -- Provides web socket network functionality for client
 npm i ws --save
+
+//'Elliptic module' (as development depandancy) -- Provides olyptic curve based cryptography, used to create public and private keys for the wallet
+npm i elliptic --save

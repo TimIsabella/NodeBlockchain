@@ -2,15 +2,16 @@
 ///////////WALLET INDEX///////////
 //////////////////////////////////
 
+const ChainUtil = require('../chain-util');
 const { INITIAL_BALANCE } = require('../config');
 
-class WALLET
+class Wallet
 	{
      constructor()
      {
       this.balance = INITIAL_BALANCE;
-      this.keyPair = null;
-      this.publicKey = null;
+      this.keyPair = ChainUtil.genKeyPair();                   //Generate wallet key pair object
+      this.publicKey = this.keyPair.getPublic().encode('hex'); //Get wallet public key from 'keyPair' object and encode into hexidecimal string
      }
      
      toString()
