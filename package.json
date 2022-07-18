@@ -1,35 +1,38 @@
 {
-  "name": "NodeBlockchain",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest --watchAll",
-    "dev-test": "nodemon dev-test",
-    "start": "node ./app",
-    "dev": "nodemon ./app"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TimIsabella/NodeBlockchain.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TimIsabella/NodeBlockchain/issues"
-  },
-  "homepage": "https://github.com/TimIsabella/NodeBlockchain#readme",
-  "devDependencies": {
-    "jest": "^28.1.2",
-    "nodemon": "^2.0.18"
-  },
-  "dependencies": {
-    "body-parser": "^1.20.0",
-    "crypto-js": "^4.1.1",
-    "elliptic": "^6.5.4",
-    "express": "^4.18.1",
-    "uuid": "^8.3.2",
-    "ws": "^8.8.0"
-  }
+    "name": "NodeBlockchain",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --watchAll",
+        "dev-test": "nodemon dev-test",
+        "start": "node ./app",
+        "dev": "nodemon ./app"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TimIsabella/NodeBlockchain.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/TimIsabella/NodeBlockchain/issues"
+    },
+    "homepage": "https://github.com/TimIsabella/NodeBlockchain#readme",
+    "devDependencies": {
+        "jest": "^28.1.2",
+        "nodemon": "^2.0.18"
+    },
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "crypto-js": "^4.1.1",
+        "elliptic": "^6.5.4",
+        "express": "^4.18.1",
+        "uuid": "^8.3.2",
+        "ws": "^8.8.0"
+    }
 }

@@ -16,9 +16,9 @@ class Transaction
 	     const transaction = new this();
 	     
 	     //Transaction amount is greater than sender wallet balance and return
-	     if(ammount > senderWallet.balance) 
+	     if(amount > senderWallet.balance) 
 	       {
-	        console.log(`Amount: ${amout} exceeds balance.`);
+	        console.log(`Amount: ${amount} exceeds balance.`);
 	        return;
 	       }
 	     
