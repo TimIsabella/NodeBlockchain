@@ -22,6 +22,15 @@ class ChainUtil
 	    {
 	     return SHA256(JSON.stringify(data)).toString();
 	    }
+	
+	 //Verify the signature where: publicKey + signature = dataHash
+	 static verifySignature(publicKey, signature, dataHash)
+	    {
+	     //Elliptic module 'keyFromPublic' method is used to verify the signature
+	     //publicKey was originally encoded to 'hex' and now must be decoded in 'hex'
+	     //Returns either true/false
+	     return ec.keyFromPublic(publicKey, 'hex').verify(dataHash, signature);
+	    }
 	}
 
 module.exports = ChainUtil;
