@@ -27,7 +27,8 @@ describe('Transaction', () => {
 							                                                                            ).toEqual(amount);
 							                                                                     }
 							     );
-							     
+							   
+							   //
 							   describe('transaction amount exceeds balance', () => {
 							                                                         beforeEach(() => {
 							                                                                           amount  = 50000;
