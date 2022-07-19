@@ -23,11 +23,9 @@ class Transaction
 	       }
 	     
 	     //Create transaction
-	     transaction.outputs.push(...[
-	                                  {amount: senderWallet.balance - amount, address: senderWallet.publicKey}, //sender wallet balance minus amount, sender wallet address
-	                                  {amount, address: recipient}                                              //ammount and recipient wallet address
-	                                 ]
-	                             );
+	     //sender wallet balance minus amount, sender wallet address
+	     //ammount and recipient wallet address
+	     transaction.outputs.push(...[{amount: senderWallet.balance - amount, address: senderWallet.publicKey}, {amount, address: recipient}]);
 	     
 	     //Call transaction
 	     Transaction.signTransaction(transaction, senderWallet);
@@ -41,8 +39,8 @@ class Transaction
 	     transaction.input = {
 	                          timeStamp: Date.now(),
 	                          amount: senderWallet.balance,
-	                          address: senderWallet.address,
-	                          signature: senderWallet.sign(ChainUtil.hash(transaction.output))
+	                          address: senderWallet.publicKey,
+	                          signature: senderWallet.sign(ChainUtil.hash(transaction.outputs))
 	                         }
 	    }
 	
