@@ -24,6 +24,13 @@ class TransactionPool
 	        this.transactions.push(transaction);
 	       }
 	    }
+	
+	 //Verify that a transaction in the pool exists by wallet public key
+     existingTransaction(address)
+        {
+         //Find transaction within the pool which matches the parameter 'address' wallet public key and return
+         return this.transactions.find(t => t.input.address === address);
+        }
 	}
 
 module.exports = TransactionPool;
