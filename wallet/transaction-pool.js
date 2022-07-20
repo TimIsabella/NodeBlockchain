@@ -25,7 +25,7 @@ class TransactionPool
 	       }
 	    }
 	
-	 //Verify that a transaction in the pool exists by wallet public key
+	 //Verify that a transaction in the pool exists by 'address' wallet public key
      existingTransaction(address)
         {
          //Find transaction within the pool which matches the parameter 'address' wallet public key and return
