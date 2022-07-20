@@ -49,6 +49,11 @@ Transactions
    - Output: sendee public key address, amount being sent, amount remaining after send
 -- Transaction updates: Multiple outputs to recipients can be stacked into a single object
 
+Transaction Pools
+-- An object which contains all new submitted transactions
+-- Transactions in the pool are 'unconfirmed' until mining of the block which they are a part of is complete
+-- Transactions are included in the 'data'
+
 Digital signatures
 -- Cryptography - The layer used for security between transactions in the form of 'digital signatures'
 -- Private key - Hash signature used by the individual to create a signature -- private key hash + data hash = public key hash
