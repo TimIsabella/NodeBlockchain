@@ -51,7 +51,7 @@ class Transaction
 	     //Subtract 'amount' from output -- 'senderOutput' as a reference is updating 'this.outputs.amount'
 	     senderOutput.amount = senderOutput.amount - amount;
 	     
-	     //Push new 'amount' of 'recipient' to transaction
+	     //Push new 'amount' for 'recipient' to transaction
 	     this.outputs.push({amount, address: recipient});
 	     
 	     //Transaction has changed and needs to be signed again

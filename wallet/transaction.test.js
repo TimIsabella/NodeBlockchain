@@ -31,16 +31,18 @@ describe('Transaction', () => {
 							                                     }
 							     );
 							   
+							   //
 							   it('validates a valid transaction', () => {
 							                                              expect(Transaction.verifyTransaction(transaction)).toBe(true);
 							                                             }
-							     )
+							     );
 							   
+							   //
 							   it('invalidates a corrupt transaction', () => {
 							                                                  transaction.outputs[0].amount = 50000;
 							                                                  expect(Transaction.verifyTransaction(transaction)).toBe(false);
 							                                                 }
-							     )
+							     );
 							   
 							   //
 							   describe('transaction amount exceeds balance', () => {
@@ -48,13 +50,44 @@ describe('Transaction', () => {
 							                                                                           amount  = 50000;
 							                                                                           transaction = Transaction.newTransaction(wallet, recipient, amount);
 							                                                                          }
-							                                                                   )
+							                                                                   );
 							                                                         
 							                                                         it('does not create the transaction', () => {
 							                                                                                                      expect(transaction).toEqual(undefined);
 							                                                                                                     }
-																					   )
+																					   );
 							                                                        }
-							           )
+							           );
+							          
+							   //
+							   describe('and updating a transaction', () => {
+							                                                 let nextAmount, nextRecipient;
+							                                                 
+							                                                 beforeEach(() => {
+							                                                                   nextAmount = 20;                //Additional amount for update
+							                                                                   nextRecipient = 'Next-Address'; //Additional recipient for update
+							                                                                   
+							                                                                   //Call 'updateTransaction' method with new update
+							                                                                   transaction = transaction.updateTransaction(wallet, nextRecipient, nextAmount);
+							                                                                  }
+							                                                           );
+							                                                           
+							                                                 it('subtracts the next amount from the sender`s wallet', () => {
+							                                                                                                                 //Check that amount of current transaction matching 'wallet' equals 'wallet.balance - amount - nextAmount'
+							                                                                                                                 expect(transaction.outputs.find(output => output.address === wallet.publicKey).amount)
+							                                                                                                                 .toEqual(wallet.balance - amount - nextAmount);
+							                                                                                                                }
+							                                                   );
+							                                                   
+							                                                 it('outputs an amount for the next recipient', () => {
+							                                                                                                       //Check that amount of current transaction matching 'nextRecipient' equals 'nextAmount'
+							                                                                                                       expect(transaction.outputs.find(output => output.address === nextRecipient).amount)
+							                                                                                                       .toEqual(nextAmount);
+							                                                                                                      }
+							                                                   )
+							                                                }
+							           );
 							  }
+							  
+							  
 		)
