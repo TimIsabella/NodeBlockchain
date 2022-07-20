@@ -47,6 +47,7 @@ Transactions
 -- An object which contains an input and an output
    - Input: sender public key address, sender balance, timestamp, signature
    - Output: sendee public key address, amount being sent, amount remaining after send
+-- Transaction updates: Multiple outputs to recipients can be stacked into a single object
 
 Digital signatures
 -- Cryptography - The layer used for security between transactions in the form of 'digital signatures'

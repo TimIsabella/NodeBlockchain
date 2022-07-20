@@ -33,6 +33,34 @@ class Transaction
 	     return transaction;
 	    }
 	
+	 //Adds an additional recipient and quantity to the transaction object
+	 updateTransaction(senderWallet, recipient, amount)
+	    {
+	     //'find' within 'outputs' the previously generated transaction object which matches the 'publicKey' of the 'senderWallet'
+	     //Purpose is to get the amount reamining in the sender wallet
+	     //'senderOutput' becomes a reference to 'this.outputs' of the transaction object
+	     const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey);
+	     
+	     //Ensure that 'amount' to be sent does not exceed the sender wallet balance
+	     if(amount > senderOutput.amount)
+	       {
+	        console.log(`Amount: ${amount} exceeds balance.`);
+	        return;
+	       }
+	     
+	     //Subtract 'amount' from output -- 'senderOutput' as a reference is updating 'this.outputs.amount'
+	     senderOutput.amount = senderOutput.amount - amount;
+	     
+	     //Push new 'amount' of 'recipient' to transaction
+	     this.outputs.push({amount, address: recipient});
+	     
+	     //Transaction has changed and needs to be signed again
+	     Transaction.signTransaction(this, senderWallet);
+	     
+	     //Return 'this' transaction
+	     return this;
+	    }
+	
 	 //Sign the transaction
 	 static signTransaction(transaction, senderWallet)
 	    {
