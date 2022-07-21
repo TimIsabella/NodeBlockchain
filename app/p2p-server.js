@@ -8,13 +8,20 @@ const P2P_PORT = process.env.P2P_PORT || 5001; //use port from process environme
 //Video example: "$ HTTP_PORT=3002 P2P_PORT=5003 PEERS=ws://localhost:5001,ws://localhost5002 npm run dev"
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : []; //use '.PEERS' of process environment if it contains data and parse by comma, otherwise return empty array
 
+//Message type fields for messages handler
+const MESSAGE_TYPES = {
+					   chain: 'CHAIN',
+					   transaction: 'TRANSACTION'
+					  };
+
 //Create the P2P server
 class P2pServer
 	{
-	 constructor(blockchain)
+	 constructor(blockchain, transactionPool)
 	            {
-	             this.blockchain = blockchain; //class.blockchain = blockchain input
-	             this.sockets = [];            //class.sockets = empty array
+	             this.blockchain = blockchain;              //blockchain input
+	             this.transactionPool = transactionPool;    //transactionPool input
+	             this.sockets = [];                         //empty array for peer sockets
 	            }
 	 
 	 //Create listen server
@@ -70,7 +77,15 @@ class P2pServer
 	 //Initiate blockchain send
      sendChain(socket)
         {
-         const bcString = JSON.stringify(this.blockchain.chain); //Stringify blockchain chain
+        //Prepare blockchain by stringify and set to message type
+         const bcString = JSON.stringify(
+                                         {
+                                          type: MESSAGE_TYPES.chain,
+                                          chain: this.blockchain.chain
+                                         }
+                                        );
+         
+         
          socket.send(bcString); //Send 'message' of blockchain string
         }
     
@@ -83,6 +98,30 @@ class P2pServer
 		                                }
 		                     );
 		}
+	
+	 //Initiate transaction send
+	 sendTransaction(socket, transaction)
+	    {
+		 //Prepare transaction by stringify and set to message type
+         const trans = JSON.stringify(
+                                      {
+                                       type: MESSAGE_TYPES.transaction,
+                                       transaction
+                                      }
+                                     );
+                                     
+		 socket.send(trans); //Send 'message' of transaction string
+	    }
+	
+	 //Peers transaction update when new individual transactions are added
+	 broadcastTransaction(transaction)
+	    {
+	     //Send update for each peer 'socket'
+	     this.sockets.forEach(socket => {
+	                                     this.sendTransaction(socket, transaction); //Send transaction to socket
+	                                    }
+	                         );
+	    }
 	}
 
 module.exports = P2pServer; //Export class

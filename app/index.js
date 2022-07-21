@@ -24,8 +24,8 @@ const wallet = new Wallet();
 //TrasactionPool instance
 const tp = new TransactionPool();
 
-//Create instance of P2pServer with 'bc' blockchain named as p2pServer
-const p2pServer = new P2pServer(bc);
+//Create instance of P2pServer with 'bc' blockchain and 'tp' transaction pool named as p2pServer
+const p2pServer = new P2pServer(bc, tp);
 
 //Mount 'bodyParser' functions onto 'app' with '.use()'
 app.use(bodyParser.json());
