@@ -42,7 +42,7 @@ class TransactionPool
                                                          //Add up transaction output amounts to get total
                                                          const outputTotal = transaction.outputs.reduce((total, output) => {
                                                                                                                              return total + output.amount;
-                                                                                                                            }, 0 //initial total value
+                                                                                                                           }, 0 //initial total value
                                                                                                        );
                                                          
                                                          //Compare added transaction ouput total with input amount, and reject if they do not match

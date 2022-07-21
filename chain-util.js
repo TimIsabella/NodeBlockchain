@@ -1,7 +1,7 @@
 const SHA256 = require('crypto-js/sha256');
 const EC = require('elliptic').ec;              //EC = 'Elliptic Cryptography'
 const ec = new EC('secp256k1');                 //Istance of EC as implementation type 'secp256k1' -- 'Standards of Efficient Cryptography Prime at 256 bits, Koblitz implementation #1'
-const uuidV1 = require('uuid').v1();            //Import 'Universally Unique Identifier' of version 1
+const uuidV1 = require('uuid');                 //Import 'Universally Unique Identifier' of version 1
 
 class ChainUtil 
 	{
@@ -14,7 +14,7 @@ class ChainUtil
 	 //Generate unique ID
 	 static id()
 	    {
-	     return uuidV1; //Return ID
+	     return uuidV1.v1(); //Return ID (uuid version 1)
 	    }
 	
 	 //Convert input to SHA256 hash string
