@@ -6,6 +6,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Blockchain = require('../blockchain'); //Calling the directory, and grabs any file called 'index' by default
 const P2pServer = require('./p2p-server');  //Include p2p-server.js
+const Wallet = require('../wallet');
+const TransactionPool = require('../wallet/transaction-pool');
 
 //'process.env.HTTP_PORT' sets the port to another number when 3001 is already taken
 const HTTP_PORT = process.env.HTTP_PORT || 3001;
@@ -15,6 +17,12 @@ const app = express();
 
 //Create new blockchain object named 'bc'
 const bc = new Blockchain();
+
+//Wallet instance
+const wallet = new Wallet();
+
+//TrasactionPool instance
+const tp = new TransactionPool();
 
 //Create instance of P2pServer with 'bc' blockchain named as p2pServer
 const p2pServer = new P2pServer(bc);
@@ -41,6 +49,12 @@ app.post('/mine', (req, res) => {
 								 res.redirect('/blocks');
 								}
 		);
+
+//app GET from '/transactions' that returns all of the pool transactions in JSON format
+app.get('/transactions', (req, res) => {
+										res.json(tp.transactions);
+									   }
+	   );
 
 //Listen server instance of 'app'
 app.listen(HTTP_PORT, () => {
