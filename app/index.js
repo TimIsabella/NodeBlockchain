@@ -56,6 +56,19 @@ app.get('/transactions', (req, res) => {
 									   }
 	   );
 
+//app POST from '/transact' that adds a new transaction to the pool
+app.post('/transact', (req, res) => {
+									 const recipient = req.body.recipient;
+									 const amount = req.body.amount;
+									 
+									 //Create transaction based on arguments
+									 const transaction = wallet.createTransaction(recipient, amount, tp);
+									 
+									 //Call GET transactions (return transaction pool in JSON)
+									 res.redirect('/transactions');
+									}
+	    )
+
 //Listen server instance of 'app'
 app.listen(HTTP_PORT, () => {
 							 console.log(`Listening on port: ${HTTP_PORT}`);
