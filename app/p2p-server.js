@@ -68,8 +68,15 @@ class P2pServer
 	                                      const data = JSON.parse(message); //Parse 'message' recieved to JSON
 	                                      //console.log('data', data);
 	                                      
+	                                      //Control flow based on message type
+	                                      switch(data.type)
+	                                            {
+	                                             case MESSAGE_TYPES.chain: this.blockchain.replaceChain(data.chain); break;
+	                                             case MESSAGE_TYPES.transaction: this.transactionPool.updateOrAddTransaction(data.transaction); break;
+	                                            }
+	                                      
 	                                      //Call 'replaceChain' to check if current chain is up to date and replace if needed
-	                                      this.blockchain.replaceChain(data);
+	                                      //this.blockchain.replaceChain(data);
 	                                     }
 	              );
 	    }

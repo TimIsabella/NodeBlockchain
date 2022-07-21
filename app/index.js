@@ -64,6 +64,9 @@ app.post('/transact', (req, res) => {
 									 //Create transaction based on arguments
 									 const transaction = wallet.createTransaction(recipient, amount, tp);
 									 
+									 //Update all peers with new transaction
+									 p2pServer.broadcastTransaction(transaction);
+									 
 									 //Call GET transactions (return transaction pool in JSON)
 									 res.redirect('/transactions');
 									}
