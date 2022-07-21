@@ -69,6 +69,9 @@ Testing for 'Section 5: Connect to Blockchain Peers'
 ----------------------------------------------------------------------------------
 BASH terminal:
 
+//Start server
+npm run dev
+
 //creates package.json file
 npm init -y
 
