@@ -42,6 +42,7 @@ Peer-to-peer server
 Wallets
 -- Stores the public and private key of an individual
 -- Public key is the address of the wallet
+-- Contains the balance belonging to the wallet
 
 Transactions
 -- An object which contains an input and an output
