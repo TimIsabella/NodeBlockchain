@@ -29,8 +29,10 @@ class Miner
 	     //Clear transaction pool
 	     this.transactionPool.clearTransactions();
 	     
-	     //TODO: syncronize chains in the peer-to-peer server
-	     //TODO: broadcast to every minor to clear their trsnaction pools
+	     //Notify peers to clear their transaction pools
+	     this.p2pServer.broadcastClearTransactions();
+
+		 return block;
 	    }
 	}
 	

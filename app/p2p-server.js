@@ -11,7 +11,8 @@ const peers = process.env.PEERS ? process.env.PEERS.split(',') : []; //use '.PEE
 //Message type fields for messages handler
 const MESSAGE_TYPES = {
 					   chain: 'CHAIN',
-					   transaction: 'TRANSACTION'
+					   transaction: 'TRANSACTION',
+					   clear_transactions: 'CLEAR_TRANSACTIONS'
 					  };
 
 //Create the P2P server
@@ -73,6 +74,7 @@ class P2pServer
 	                                            {
 	                                             case MESSAGE_TYPES.chain: this.blockchain.replaceChain(data.chain); break;
 	                                             case MESSAGE_TYPES.transaction: this.transactionPool.updateOrAddTransaction(data.transaction); break;
+	                                             case MESSAGE_TYPES.clear_transactions: this.transactionPool.clearTransactions(); break;
 	                                            }
 	                                      
 	                                      //Call 'replaceChain' to check if current chain is up to date and replace if needed
@@ -127,6 +129,18 @@ class P2pServer
 	     this.sockets.forEach(socket => {
 	                                     this.sendTransaction(socket, transaction); //Send transaction to socket
 	                                    }
+	                         );
+	    }
+	 
+	 //Notifies all peers to clear their transaction pool
+	 broadcastClearTransactions()
+	    {
+	     this.sockets.forEach(socket => socket.send(JSON.stringify(
+	                                                               {
+	                                                                type: MESSAGE_TYPES.clear_transactions
+	                                                               }
+	                                                              )
+	                                               )
 	                         );
 	    }
 	}
