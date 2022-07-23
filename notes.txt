@@ -72,6 +72,9 @@ BASH terminal:
 //Start server
 npm run dev
 
+//Start testing
+npm run test
+
 //creates package.json file
 npm init -y
 
