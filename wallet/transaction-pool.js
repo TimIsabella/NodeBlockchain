@@ -64,6 +64,12 @@ class TransactionPool
                                                         }
                                         );
         };
+    
+     //Clears the transaction pool
+     clearTransactions()
+        {
+         this.transactions = [];
+        }
 	}
 
 module.exports = TransactionPool;
