@@ -11,7 +11,11 @@ class Miner
 	     this.p2pServer = p2pServer;
 	    }
 	
-	 //Mine method
+	 //Block mining complete
+	 //- Create a block of all valid transactions and include 1 reward transaction for the miner
+	 //- Synchronize peer chains with transactions
+	 //- Clear local transaction pool and initiate peers to clear their
+	 //- Return completed block
 	 mine()
 	    {
 	     //Set 'validTransactions' as all validated transactions from current transaction pool

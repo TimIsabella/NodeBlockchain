@@ -8,6 +8,7 @@ const Blockchain = require('../blockchain'); //Calling the directory, and grabs 
 const P2pServer = require('./p2p-server');  //Include p2p-server.js
 const Wallet = require('../wallet');
 const TransactionPool = require('../wallet/transaction-pool');
+const Miner = require('./miner');
 
 //'process.env.HTTP_PORT' sets the port to another number when 3001 is already taken
 const HTTP_PORT = process.env.HTTP_PORT || 3001;
@@ -27,6 +28,9 @@ const tp = new TransactionPool();
 //Create instance of P2pServer with 'bc' blockchain and 'tp' transaction pool named as p2pServer
 const p2pServer = new P2pServer(bc, tp);
 
+//Create miner instance
+const miner = new Miner(bc, tp, wallet, p2pServer);
+
 //Mount 'bodyParser' functions onto 'app' with '.use()'
 app.use(bodyParser.json());
 
@@ -34,6 +38,18 @@ app.use(bodyParser.json());
 app.get('/blocks', (req, res) => {
 								  res.json(bc.chain);
 								 }
+	   );
+
+//app GET to run mine method
+app.get('/mine-transactions', (req, res) => {
+											 //Set 'block' to the completed block
+											 const block = miner.mine();
+											 
+											 console.log(`New block has been added: ${block.toString()}`);
+											 
+											 //Call '/blocks' to output the current chain to the client
+											 res.redirect('/blocks');
+											}
 	   );
 
 //app POST to '/mine'
