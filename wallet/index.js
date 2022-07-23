@@ -61,6 +61,17 @@ class Wallet
 		   
 		 return transaction;
         }
+     
+     //Create blockchain wallet
+     static blockchainWallet()
+        {
+         //Wallet based on constructor
+         const blockchainWallet = new this();
+         
+         blockchainWallet.address = 'blockchain-wallet';
+         
+         return blockchainWallet;
+        }
 	}
 
 module.exports = Wallet;

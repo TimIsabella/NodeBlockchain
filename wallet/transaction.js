@@ -1,4 +1,5 @@
 const ChainUtil = require('../chain-util');
+const { MINING_REWARD } = require('../config');
 
 class Transaction
 	{
@@ -9,25 +10,49 @@ class Transaction
 	     this.outputs = [];
 	    }
 	 
-	 //Transaction method
+	 //New transaction
 	 static newTransaction(senderWallet, recipient, amount)
 	    {
-	     //Transaction based on constructor
-	     const transaction = new this();
-	     
-	     //Transaction amount is greater than sender wallet balance and return
+	     //Reject transaction when amount is greater than sender wallet balance
 	     if(amount > senderWallet.balance) 
 	       {
 	        console.log(`Amount: ${amount} exceeds balance.`);
 	        return;
 	       }
 	     
+	     /*
+	     //Transaction based on constructor
+	     const transaction = new this();
+	     
 	     //Create transaction
-	     //sender wallet balance minus amount, sender wallet address
-	     //ammount and recipient wallet address
+	     //Sender wallet balance minus amount, sender wallet address
+	     //Ammount and recipient wallet address
 	     transaction.outputs.push(...[{amount: senderWallet.balance - amount, address: senderWallet.publicKey}, {amount, address: recipient}]);
 	     
-	     //Call transaction
+	     //Sign the transaction
+	     Transaction.signTransaction(transaction, senderWallet);
+	     
+	     return transaction;
+	     */
+	     
+	     //Generate the transaction
+	     return Transaction.generateTransaction(senderWallet, [
+	                                                           {amount: senderWallet.balance - amount, address: senderWallet.publicKey}, //Sender wallet balance minus amount, sender wallet address
+	                                                           {amount, address: recipient}                                              //Ammount and recipient wallet address
+	                                                          ]
+	                                           );
+	    }
+	
+	//Generates transaction based on outputs
+	static generateTransaction(senderWallet, outputs)
+	    {
+	     //Transaction based on constructor
+	     const transaction = new this();
+	     
+	     //Push the 'outputs' to the transaction
+	     transaction.outputs.push(...outputs);
+	     
+	     //Sign the new transaction
 	     Transaction.signTransaction(transaction, senderWallet);
 	     
 	     return transaction;
@@ -81,6 +106,16 @@ class Transaction
 	                                      transaction.input.signature, 
 	                                      ChainUtil.hash(transaction.outputs)
 	                                     );
+	    }
+	
+	  //Mining reward transaction
+	  static rewardTransaction(minerWallet, blockchainWallet)
+	    {
+	     //Generate the transaction
+	     return Transaction.generateTransaction(blockchainWallet, [
+	                                                               {amount: MINING_REWARD, address: minerWallet.publicKey} //Reward the miner wallet
+	                                                              ]
+	                                           );
 	    }
 	}
 
