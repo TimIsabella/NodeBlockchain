@@ -78,7 +78,7 @@ app.post('/transact', (req, res) => {
 									 const amount = req.body.amount;
 									 
 									 //Create transaction based on arguments
-									 const transaction = wallet.createTransaction(recipient, amount, tp);
+									 const transaction = wallet.createTransaction(recipient, amount, bc, tp);
 									 
 									 //Update all peers with new transaction
 									 p2pServer.broadcastTransaction(transaction);

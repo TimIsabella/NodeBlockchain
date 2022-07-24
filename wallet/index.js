@@ -31,8 +31,11 @@ class Wallet
         }
     
      //Creates a transaction for the pool or replaces one that already exists
-     createTransaction(recipient, amount, transactionPool)
+     createTransaction(recipient, amount, blockchain, transactionPool)
         {
+         //Get balance by '.calculateBalance()' method
+         this.balance = this.calculateBalance(blockchain);
+         
          //If 'amount' is greater than wallet balance
          if(amount > this.blanace)
 		   {
@@ -40,26 +43,26 @@ class Wallet
 		    return;
 		   }
 		
-		 //Set 'transaction' of 'transactionPool' to one that matches the wallet public key by calling 'existingTransaction'
-		 let transaction = transactionPool.existingTransaction(this.publicKey);
-		 
-		 //Match found
-		 if(transaction)
-		   {
-		    //Call 'updateTransaction' method with arguments
-		    transaction.updateTransaction(this, recipient, amount);
-		   }
-		 //No match found (returned undefined)
-		 else
-		   {
-		    //New transaction with arguments
-		    transaction = Transaction.newTransaction(this, recipient, amount);
-		    
-		    //New transaction sent to pool through 'updateOrAddTransaction' method
-		    transactionPool.updateOrAddTransaction(transaction);
-		   }
+		   //Set 'transaction' of 'transactionPool' to one that matches the wallet public key by calling 'existingTransaction'
+		   let transaction = transactionPool.existingTransaction(this.publicKey);
 		   
-		 return transaction;
+		   //Match found
+		   if(transaction)
+		     {
+		      //Call 'updateTransaction' method with arguments
+		      transaction.updateTransaction(this, recipient, amount);
+		     }
+		   //No match found (returned undefined)
+		   else
+		     {
+		      //New transaction with arguments
+		      transaction = Transaction.newTransaction(this, recipient, amount);
+		      
+		      //New transaction sent to pool through 'updateOrAddTransaction' method
+		      transactionPool.updateOrAddTransaction(transaction);
+		     }
+		   
+		   return transaction;
         }
      
      //Calculate the wallet balance
@@ -68,13 +71,13 @@ class Wallet
        let balance = this.balance; //Set to current balance
        let startTime = 0;
        let transactions = [];
-       const recentInputTransactions = 0;
        
        //Push every transaction within 'blockchain' to 'transaction' array
        //- Run loop forEach chain
        //- Within each chain loop, run forEach to capture every transaction
+       
        blockchain.chain.forEach(block => block.data.forEach(transaction => {
-                                                                            transaction.push(transaction);
+                                                                            transactions.push(transaction);
                                                                            }
                                                            )
                                );
@@ -87,7 +90,7 @@ class Wallet
          {
           //Get only the most recent transactions from the current wallet
           //- if previous timestamp > current timestamp return previous else return current
-          recentInputTransactions = walletInputTransactions.reduce((prev, current) => prev.input.timeStamp > current.input.timeStamp ? prev : current);
+          const recentInputTransactions = walletInputTransactions.reduce((prev, current) => prev.input.timeStamp > current.input.timeStamp ? prev : current);
           
          //Balance from most recent transaction
          balance = recentInputTransactions.outputs.find(output => output.address === this.publicKey).amount;
@@ -99,11 +102,11 @@ class Wallet
        //Set balance by adding up all transactions to current wallet
        transactions.forEach(transaction => {
                                             //If transaction timestamp > 'startTime', find within transaction...
-                                            if(transaction.timeStamp > startTime) transaction.outputs.find(output => {
-                                                                                                                      //If transaction address matches wallet public key, add amount to balance
-                                                                                                                      if(output.address === this.publicKey) balance += output.amount;
-                                                                                                                     }
-                                                                                                          )
+                                            if(transaction.input.timeStamp > startTime) transaction.outputs.find(output => {
+                                                                                                                            //If transaction address matches wallet public key, add amount to balance
+                                                                                                                            if(output.address === this.publicKey) balance += output.amount;
+                                                                                                                           }
+                                                                                                                )
                                            }
                            );
                 

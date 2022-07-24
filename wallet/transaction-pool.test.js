@@ -1,13 +1,15 @@
 const TransactionPool = require('./transaction-pool');
 const Transaction = require('./transaction');
 const Wallet = require('./index');
+const Blockchain = require('../blockchain');
 
 describe('TransactionPool', () => {
-								   let tp, wallet, transaction;
+								   let tp, wallet, transaction, bc;
 								   
 								   beforeEach(() => {
 								                     tp = new TransactionPool();
 								                     wallet = new Wallet();
+								                     bc = new Blockchain();
 								                     
 								                     //Create new transaction based on arguments
 								                     //transaction = Transaction.newTransaction(wallet, 'randomTransaction111', 30);
@@ -16,7 +18,7 @@ describe('TransactionPool', () => {
 								                     //tp.updateOrAddTransaction(transaction);
 								                     
 								                     //Create new transaction based on arguments
-								                     transaction = wallet.createTransaction('randomTransaction111', 30, tp);
+								                     transaction = wallet.createTransaction('randomTransaction111', 30, bc, tp);
 								                    }
 								             );
 								             
@@ -62,7 +64,7 @@ describe('TransactionPool', () => {
 								                                                                                  wallet = new Wallet();
 								                                                                                  
 								                                                                                  //Creates a new transaction
-								                                                                                  transaction = wallet.createTransaction('randomTransaction111', 30, tp);
+								                                                                                  transaction = wallet.createTransaction('randomTransaction111', 30, bc, tp);
 								                                                                                  
 								                                                                                  //Changes input every other index to cause an invalid transaction
 								                                                                                  if(i%2 == 0) {transaction.input.amount = 99999;}

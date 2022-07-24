@@ -35,21 +35,17 @@ class Block
 		//'static' - method that allows calling without having to make a new instance of the block class
 		static genesis()
 		{
-		 return new this('Genesis time', 'Genesis lastHash', 'Genesis hash', 'Genesis data data data', 0, DIFFICULTY);
+		 return new this('Genesis time', 'Genesis lastHash', 'Genesis hash', [], 0, DIFFICULTY);
 		}
 		
-		//BLock for mining - 
+		//Block for mining - 
 		static mineBlock(lastBlock, data)
 		{
 		 let timeStamp;
-		 let lastHash;
+		 const lastHash = lastBlock.hash;        //Hash from previous block
 		 let hash;
-		 let nonce;
-		 let difficulty;
-		 
-		 lastHash = lastBlock.hash;           //Hash from previous block
-		 nonce = 0;                           //Nonce value
-		 difficulty = lastBlock.difficulty;   //Set 'difficulty' to 'lastBlock' difficulty
+		 let nonce = 0;                          //Nonce value
+		 let difficulty = lastBlock.difficulty;  //Set 'difficulty' to 'lastBlock' difficulty
 		 
 		 /*
 		 //Perform loop to find hash starting with zeros up to 'DIFFICULTY' value until match
@@ -82,6 +78,7 @@ class Block
 		 return ChainUtil.hash(`${timeStamp}${lastHash}${data}${nonce}${difficulty}`).toString();
 		}
 		
+		//Hash the block
 		static blockHash(block)
 		{
 		 //Destructure variables into 'block'
