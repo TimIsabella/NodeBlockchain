@@ -20,12 +20,11 @@ const Blockchain = require('./blockchain');
 const bc = new Blockchain();
 
 //Add 10 blocks to the chain
-for(let i = 0; i < 10; i++)
-   {
-	console.log(bc.addBlock(`New data ${i}`).toString());
-   }
+for (let i = 0; i < 10; i++) {
+    console.log(bc.addBlock(`New data ${i}`).toString());
+}
 */
 
-const Wallet = require('./wallet');
+const Wallet = require("./wallet");
 const wallet = new Wallet();
 console.log(wallet.toString());
